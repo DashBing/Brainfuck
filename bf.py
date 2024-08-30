@@ -83,7 +83,7 @@ class Classic:
     def break_do(self, text:str):
         if text[self.seek_now] == "]":
             self.flag_find_bracket = False
-            self.seek_now += 1
+        self.seek_now += 1
 
     def run(self, text:str):
         while self.seek_now < len(text):
@@ -124,6 +124,16 @@ class NewStandard(Classic):
     jmppoint_list = []
 
     flag_jump = False
+
+    @property
+    def break_condition(self):
+        return(super().break_condition or self.flag_jump)
+
+    def break_do(self, text: str):
+        if self.flag_jump:
+            pass
+        else:
+            super().break_do(text)
 
     def unknown_command(self, command):
         match command:
