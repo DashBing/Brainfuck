@@ -122,5 +122,5 @@ def file_processor(files:str):
         s = s + "\n"
     return preprocessor(s)
 
-def interpreter(files:str, run_obj:object = Classic):
-    run_obj().run(file_processor(files))
+def interpreter(files:str, mode:object = Classic):
+    mode().run(file_processor(files))
