@@ -110,6 +110,9 @@ class Classic:
                         self.unknown_command(x)
 
 class NewStandard(Classic):
+
+    jmppoint_list = []
+
     def unknown_command(command):
         match command:
             case x:
