@@ -1,6 +1,6 @@
 from sys import argv
 
-annotator = ";"
+annotator = "//"
 
 class IndexMinusError(Exception):
     message = "Index can't be minus."
@@ -137,6 +137,9 @@ class NewStandard(Classic):
         else:
             super().break_do(text)
 
+    def output_str(self):
+        pass
+
     def unknown_command(self, command):
         match command:
             case "?":
@@ -156,8 +159,11 @@ class NewStandard(Classic):
                 self.right()
                 self.memory[self.index_now] = tmp
                 self.seek_now += 1
+            case ";":
+                self.output_str()
+                self.seak_now += 1
             case x:
-                self.memory[self.index_now] = x
+                self.memory[self.index_now] = ord(x)
                 self.seek_now += 1
 
 def preprocessor(code:str) -> str:
