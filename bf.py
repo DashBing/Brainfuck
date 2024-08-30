@@ -115,6 +115,9 @@ class NewStandard(Classic):
 
     def unknown_command(self, command):
         match command:
+            case "%":
+                self.jmppoint_list.append(self.seek_now)
+                self.seek_now += 1
             case x:
                 super().unknown_command(x)
 
