@@ -73,8 +73,8 @@ class Classic:
     def right_bracket(self):
         self.seek_now = self.jmplist[-1]
 
-    def unknown_command(x):
-        raise UnknownCommandError(x)
+    def unknown_command(command):
+        raise UnknownCommandError(command)
 
     def run(self, text:str):
         while self.seek_now < len(text):
@@ -110,10 +110,10 @@ class Classic:
                         self.unknown_command(x)
 
 class NewStandard(Classic):
-    def unknown_command(x):
-        match x:
-            case _:
-                super().unknown_command()
+    def unknown_command(command):
+        match command:
+            case x:
+                super().unknown_command(x)
 
 def preprocessor(code:str) -> str:
     code = code.replace("\r", "\n")
