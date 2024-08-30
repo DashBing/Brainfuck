@@ -143,7 +143,9 @@ class NewStandard(Classic):
             super().break_do(text)
 
     def output_str(self):
-        pass
+        while(self.now != 0):
+            self.output()
+            self.index_now += 1
 
     def unknown_command(self, command):
         match command:
@@ -176,7 +178,7 @@ class NewStandard(Classic):
                 self.seek_now += 1
             case ";":
                 self.output_str()
-                self.seak_now += 1
+                self.seek_now += 1
             case "!":
                 self.mem_back_list.append(self.index_now)
                 self.seek_now += 1
