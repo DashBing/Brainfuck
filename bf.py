@@ -96,3 +96,12 @@ class Classic:
                         self.right_bracket()
                     case x:
                         self.unknown_command(x)
+
+replace_dict = {
+    "\n":"",
+    "\r":"",
+    "\t":"",
+}
+
+def Interpreter(files):
+    pass
