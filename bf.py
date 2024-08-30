@@ -188,6 +188,7 @@ class NewStandard(Classic):
                 self.seek_now += 1
             case x:
                 self.memory[self.index_now] = ord(x)
+                self.right()
                 self.seek_now += 1
 
 def preprocessor(code:str) -> str:

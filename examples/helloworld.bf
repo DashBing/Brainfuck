@@ -1,4 +1,4 @@
-!H>e>l>l>o>  // Hello
+!Hello  // Hello
 ++++++++++++++++++++++++++++++++  // This is space
->w>o>r>l>d>*  // world
+>world*  // world
 @;  // jump back and output string
