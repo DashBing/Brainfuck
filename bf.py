@@ -60,6 +60,9 @@ class Classic:
     def left_bracket(self):
         if self.now == 0:
             self.flag_find_bracket = True
+            if self.seek_now in self.jmplist:
+                if self.jmplist[-1] == self.seek_now:
+                    del self.jmplist[-1]
         elif len(self.jmplist) > 0:
             if self.jmplist[-1] != self.seek_now:
                 self.jmplist.append(self.seek_now)
@@ -68,7 +71,7 @@ class Classic:
         self.seek_now += 1
 
     def right_bracket(self):
-        pass
+        self.seek_now = self.jmplist[-1]
 
     def unknown_command(x):
         raise UnknownCommandError(x)
@@ -76,7 +79,9 @@ class Classic:
     def run(self, text:str):
         while self.seek_now < len(text):
             if self.flag_find_bracket:
-                pass
+                if text[self.seek_now] == "]":
+                    self.flag_find_bracket = False
+                self.seek_now += 1
             else:
                 match text[self.seek_now]:
                     case ">":
