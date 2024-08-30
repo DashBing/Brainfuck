@@ -140,7 +140,8 @@ class NewStandard(Classic):
     def unknown_command(self, command):
         match command:
             case "?":
-                self.flag_jump = True
+                if self.now == 0:
+                    self.flag_jump = True
                 self.seek_now += 1
             case x:
                 super().unknown_command(x)
