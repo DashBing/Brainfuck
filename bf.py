@@ -5,7 +5,7 @@ class IndexMinusError(Exception):
     def __str__(self) -> str:
         return self.message
 
-class Interpreter:
+class Classic:
     memory = [0]
     index_now = 0  # index of the memory now
     input_cache = []  # input cache list
