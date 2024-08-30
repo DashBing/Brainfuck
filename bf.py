@@ -129,3 +129,8 @@ def file_processor(files:str):
 
 def interpreter(files:str, mode:object = Classic):
     mode().run(file_processor(files))
+
+if __name__ == "__main__":
+    match argv[1:]:
+        case [*files]:
+            interpreter(files)
