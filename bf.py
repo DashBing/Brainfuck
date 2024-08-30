@@ -143,6 +143,19 @@ class NewStandard(Classic):
                 if self.now == 0:
                     self.flag_jump = True
                 self.seek_now += 1
+            case "*":
+                self.memory[self.index_now] = 0
+                self.seek_now += 1
+            case "{":
+                tmp = self.now()
+                self.left()
+                self.memory[self.index_now] = tmp
+                self.seek_now += 1
+            case "}":
+                tmp = self.now()
+                self.right()
+                self.memory[self.index_now] = tmp
+                self.seek_now += 1
             case x:
                 super().unknown_command(x)
 
