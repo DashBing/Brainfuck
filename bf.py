@@ -9,6 +9,7 @@ class Interpreter:
     memory = [0]
     p_now = 0
     p_jmplist = []
+    input_cache = ""
 
     def left(self):
         if self.p_now > 0:
@@ -23,3 +24,14 @@ class Interpreter:
 
     def output(self):
         print(chr(self.memory[self.p_now]), end="")
+
+    def input(self):
+        if(len(self.input_cache) == 0):
+            self.input_cache = list(input())
+        self.memory[self.p_now] = ord(self.input_cache[0])
+        del self.input_cache[0]
+
+    def __str__(self) -> str:
+        return(self.memory.__str__())
+    def __repr__(self) -> str:
+        return(self.memory.__repr__())
