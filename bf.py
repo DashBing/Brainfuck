@@ -80,12 +80,15 @@ class Classic:
     def break_condition(self):
         return(self.flag_find_bracket)
 
+    def break_do(self, text:str):
+        if text[self.seek_now] == "]":
+            self.flag_find_bracket = False
+            self.seek_now += 1
+
     def run(self, text:str):
         while self.seek_now < len(text):
             if self.break_condition:
-                if text[self.seek_now] == "]":
-                    self.flag_find_bracket = False
-                self.seek_now += 1
+                self.break_do()
             else:
                 match text[self.seek_now]:
                     case ">":
