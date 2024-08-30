@@ -1,7 +1,5 @@
 from sys import argv
 
-classic_mode = True
-
 class IndexMinusError(Exception):
     message = "Index can't be minus."
     def __str__(self) -> str:
@@ -51,7 +49,17 @@ class Interpreter:
         return(self.memory.__str__())
     def __repr__(self) -> str:
         return(self.memory.__repr__())
-    
+
+    def left_bracket(self):
+        if self.now == 0:
+            self.flag_find_bracket = True
+        elif len(self.jmplist) > 0:
+            if self.jmplist[-1] != self.seek_now:
+                self.jmplist.append(self.seek_now)
+        else:
+            self.jmplist.append(self.seek_now)
+        self.seek_now += 1
+
     def run(self, text:str):
         while self.seek_now < len(text):
             if self.flag_find_bracket:
@@ -77,13 +85,6 @@ class Interpreter:
                         self.input()
                         self.seek_now += 1
                     case "[":
-                        if self.now == 0:
-                            self.flag_find_bracket = True
-                        elif len(self.jmplist) > 0:
-                            if self.jmplist[-1] != self.seek_now:
-                                self.jmplist.append(self.seek_now)
-                        else:
-                            self.jmplist.append(self.seek_now)
-                        self.seek_now += 1
+                        self.left_bracket()
                     case "]":
                         pass
