@@ -53,3 +53,15 @@ class Interpreter:
                 case "<":
                     self.left()
                     self.seek_now += 1
+                case "+":
+                    self.add()
+                    self.seek_now += 1
+                case "-":
+                    self.sub()
+                    self.seek_now += 1
+                case ".":
+                    self.output()
+                    self.seek_now += 1
+                case ",":
+                    self.input()
+                    self.seek_now += 1
