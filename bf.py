@@ -37,3 +37,13 @@ class Interpreter:
         return(self.memory.__str__())
     def __repr__(self) -> str:
         return(self.memory.__repr__())
+    
+    def run(self, text:str):
+        while self.seek_now < len(text):
+            match text[self.seek_now]:
+                case ">":
+                    self.right()
+                    self.seek_now += 1
+                case "<":
+                    self.left()
+                    self.seek_now += 1
