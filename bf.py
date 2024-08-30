@@ -5,6 +5,11 @@ class IndexMinusError(Exception):
     def __str__(self) -> str:
         return self.message
 
+class UnknownCommandError(IndexMinusError):
+    message = 'Unknown command: "%s"'
+    def __init__(self, command):
+        self.message = self.message%command
+
 class Classic:
     memory = [0]
     index_now = 0  # index of the memory now
@@ -64,7 +69,7 @@ class Classic:
         pass
 
     def unknown_command(x):
-        pass
+        raise UnknownCommandError(x)
 
     def run(self, text:str):
         while self.seek_now < len(text):
