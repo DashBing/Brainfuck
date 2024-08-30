@@ -76,12 +76,19 @@ class Classic:
     def unknown_command(self, command):
         raise UnknownCommandError(command)
 
+    @property
+    def break_condition(self):
+        return(self.flag_find_bracket)
+
+    def break_do(self, text:str):
+        if text[self.seek_now] == "]":
+            self.flag_find_bracket = False
+        self.seek_now += 1
+
     def run(self, text:str):
         while self.seek_now < len(text):
-            if self.flag_find_bracket:
-                if text[self.seek_now] == "]":
-                    self.flag_find_bracket = False
-                self.seek_now += 1
+            if self.break_condition:
+                self.break_do()
             else:
                 match text[self.seek_now]:
                     case ">":
@@ -109,6 +116,35 @@ class Classic:
                     case x:
                         self.unknown_command(x)
 
+class JumppointNotFoundError(Exception):
+    pass
+
+class NewStandard(Classic):
+
+    jmppoint_list = []
+
+    flag_jump = False
+
+    @property
+    def break_condition(self):
+        return(super().break_condition or self.flag_jump)
+
+    def break_do(self, text: str):
+        if self.flag_jump:
+            if text[self.seek_now] == ":":
+                self.flag_jump = False
+            self.seek_now += 1
+        else:
+            super().break_do(text)
+
+    def unknown_command(self, command):
+        match command:
+            case "?":
+                self.flag_jump = True
+                self.seek_now += 1
+            case x:
+                super().unknown_command(x)
+
 def preprocessor(code:str) -> str:
     code = code.replace("\r", "\n")
     code = code.split("\n")
@@ -134,3 +170,5 @@ if __name__ == "__main__":
     match argv[1:]:
         case [*files]:
             interpreter(files)
+        case ["-n", *files]:
+            interpreter(files, NewStandard)
