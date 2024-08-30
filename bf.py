@@ -21,5 +21,5 @@ class Interpreter:
             self.memory.append(0)
         self.p_now += 1
 
-    def out(self):
+    def output(self):
         print(chr(self.memory[self.p_now]), end="")
