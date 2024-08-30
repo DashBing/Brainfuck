@@ -1,5 +1,7 @@
 from sys import argv
 
+classic_mode = True
+
 class IndexMinusError(Exception):
     message = "Index can't be minus."
     def __str__(self) -> str:
@@ -12,6 +14,12 @@ class Interpreter:
 
     seek_now = 0  # pointer of the code
     jmplist = []  # jump pointer list for circular instructions
+
+    flag_find_bracket = False
+
+    @property
+    def now(self) -> int:
+        return(self.memory[self.index_now])
 
     def left(self):
         if self.index_now > 0:
@@ -31,7 +39,7 @@ class Interpreter:
         self.memory[self.index_now] -= 1
 
     def output(self):
-        print(chr(self.memory[self.index_now]), end="")
+        print(chr(self.now), end="")
 
     def input(self):
         if(len(self.input_cache) == 0):
@@ -46,22 +54,36 @@ class Interpreter:
     
     def run(self, text:str):
         while self.seek_now < len(text):
-            match text[self.seek_now]:
-                case ">":
-                    self.right()
-                    self.seek_now += 1
-                case "<":
-                    self.left()
-                    self.seek_now += 1
-                case "+":
-                    self.add()
-                    self.seek_now += 1
-                case "-":
-                    self.sub()
-                    self.seek_now += 1
-                case ".":
-                    self.output()
-                    self.seek_now += 1
-                case ",":
-                    self.input()
-                    self.seek_now += 1
+            if self.flag_find_bracket:
+                pass
+            else:
+                match text[self.seek_now]:
+                    case ">":
+                        self.right()
+                        self.seek_now += 1
+                    case "<":
+                        self.left()
+                        self.seek_now += 1
+                    case "+":
+                        self.add()
+                        self.seek_now += 1
+                    case "-":
+                        self.sub()
+                        self.seek_now += 1
+                    case ".":
+                        self.output()
+                        self.seek_now += 1
+                    case ",":
+                        self.input()
+                        self.seek_now += 1
+                    case "[":
+                        if self.now == 0:
+                            self.flag_find_bracket = True
+                        elif len(self.jmplist) > 0:
+                            if self.jmplist[-1] != self.seek_now:
+                                self.jmplist.append(self.seek_now)
+                        else:
+                            self.jmplist.append(self.seek_now)
+                        self.seek_now += 1
+                    case "]":
+                        pass
