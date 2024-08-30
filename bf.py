@@ -113,7 +113,7 @@ class NewStandard(Classic):
 
     jmppoint_list = []
 
-    def unknown_command(command):
+    def unknown_command(self, command):
         match command:
             case x:
                 super().unknown_command(x)
