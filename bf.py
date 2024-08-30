@@ -131,7 +131,9 @@ class NewStandard(Classic):
 
     def break_do(self, text: str):
         if self.flag_jump:
-            pass
+            if text[self.seek_now] == ":":
+                self.flag_jump = False
+            self.seek_now += 1
         else:
             super().break_do(text)
 
