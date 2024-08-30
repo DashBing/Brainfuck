@@ -7,28 +7,28 @@ class IndexMinusError(Exception):
 
 class Interpreter:
     memory = [0]
-    p_now = 0
-    p_jmplist = []
+    index_now = 0
+    jmplist = []
     input_cache = ""
 
     def left(self):
-        if self.p_now > 0:
-            self.p_now -= 1
+        if self.index_now > 0:
+            self.index_now -= 1
         else:
             raise IndexMinusError()
 
     def right(self):
-        if self.p_now+2 > len(self.memory):
+        if self.index_now+2 > len(self.memory):
             self.memory.append(0)
-        self.p_now += 1
+        self.index_now += 1
 
     def output(self):
-        print(chr(self.memory[self.p_now]), end="")
+        print(chr(self.memory[self.index_now]), end="")
 
     def input(self):
         if(len(self.input_cache) == 0):
             self.input_cache = list(input())
-        self.memory[self.p_now] = ord(self.input_cache[0])
+        self.memory[self.index_now] = ord(self.input_cache[0])
         del self.input_cache[0]
 
     def __str__(self) -> str:
