@@ -157,7 +157,8 @@ class NewStandard(Classic):
                 self.memory[self.index_now] = tmp
                 self.seek_now += 1
             case x:
-                super().unknown_command(x)
+                self.memory[self.index_now] = x
+                self.seek_now += 1
 
 def preprocessor(code:str) -> str:
     code = code.replace("\r", "\n")
