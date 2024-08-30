@@ -24,6 +24,12 @@ class Interpreter:
             self.memory.append(0)
         self.index_now += 1
 
+    def add(self):
+        self.memory[self.index_now] += 1
+
+    def sub(self):
+        self.memory[self.index_now] -= 1
+
     def output(self):
         print(chr(self.memory[self.index_now]), end="")
 
