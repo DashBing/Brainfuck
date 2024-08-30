@@ -63,6 +63,9 @@ class Classic:
     def right_bracket(self):
         pass
 
+    def unknown_command(x):
+        pass
+
     def run(self, text:str):
         while self.seek_now < len(text):
             if self.flag_find_bracket:
@@ -91,3 +94,5 @@ class Classic:
                         self.left_bracket()
                     case "]":
                         self.right_bracket()
+                    case x:
+                        self.unknown_command(x)
