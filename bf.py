@@ -110,10 +110,10 @@ class Classic:
                         self.unknown_command(x)
 
 class NewStandard(Classic):
-    def unknown_command(x):
-        match x:
-            case _:
-                super().unknown_command()
+    def unknown_command(command):
+        match command:
+            case x:
+                super().unknown_command(x)
 
 def preprocessor(code:str) -> str:
     code = code.replace("\r", "\n")
