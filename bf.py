@@ -124,6 +124,7 @@ class NewStandard(Classic):
     jmppoint_list = []
 
     flag_jump = False
+    flag_jump_right = True
 
     @property
     def break_condition(self):
@@ -133,7 +134,10 @@ class NewStandard(Classic):
         if self.flag_jump:
             if text[self.seek_now] == ":":
                 self.flag_jump = False
-            self.seek_now += 1
+            if self.flag_jump_right:
+                self.seek_now += 1
+            else:
+                self.seek_now -= 1
         else:
             super().break_do(text)
 
@@ -142,10 +146,16 @@ class NewStandard(Classic):
 
     def unknown_command(self, command):
         match command:
-            case "?":
+            case "/":
                 if self.now == 0:
                     self.flag_jump = True
+                    self.flag_jump_right = True
                 self.seek_now += 1
+            case "\\":
+                if self.now == 0:
+                    self.flag_jump = True
+                    self.flag_jump_right = False
+                self.seek_now -= 1
             case "*":
                 self.memory[self.index_now] = 0
                 self.seek_now += 1
