@@ -122,6 +122,7 @@ class JumppointNotFoundError(Exception):
 class NewStandard(Classic):
 
     jmppoint_list = []
+    mem_back_list = []
 
     flag_jump = False
     flag_jump_right = True
@@ -159,6 +160,10 @@ class NewStandard(Classic):
             case "*":
                 self.memory[self.index_now] = 0
                 self.seek_now += 1
+            case "#":
+                self.memory = [0]
+                self.index_now = 0
+                self.seek_now += 1
             case "{":
                 tmp = self.now()
                 self.left()
@@ -172,6 +177,13 @@ class NewStandard(Classic):
             case ";":
                 self.output_str()
                 self.seak_now += 1
+            case "!":
+                self.mem_back_list.append(self.index_now)
+                self.seek_now += 1
+            case "@":
+                self.index_now = self.mem_back_list[-1]
+                del self.mem_back_list[-1]
+                self.seek_now += 1
             case x:
                 self.memory[self.index_now] = ord(x)
                 self.seek_now += 1
