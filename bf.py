@@ -109,9 +109,19 @@ class Classic:
                     case x:
                         self.unknown_command(x)
 
+class JumppointNotFoundError(Exception):
+    pass
+
 class NewStandard(Classic):
 
     jmppoint_list = []
+
+    @property
+    def jmppoint_locate(self) -> int:
+        for i in range(len(self.jmppoint_list)):
+            if self.jmppoint_list[i] < self.seek_now and self.jmppoint_list[i+1] > self.seek_now:
+                return(i)
+        raise JumppointNotFoundError()
 
     def unknown_command(self, command):
         match command:
