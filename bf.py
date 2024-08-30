@@ -73,7 +73,7 @@ class Classic:
     def right_bracket(self):
         self.seek_now = self.jmplist[-1]
 
-    def unknown_command(command):
+    def unknown_command(self, command):
         raise UnknownCommandError(command)
 
     def run(self, text:str):
