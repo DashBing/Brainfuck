@@ -109,6 +109,9 @@ class Classic:
                     case x:
                         self.unknown_command(x)
 
+class NewStandard(Classic):
+    pass
+
 def preprocessor(code:str) -> str:
     code = code.replace("\r", "\n")
     code = code.split("\n")
@@ -134,3 +137,5 @@ if __name__ == "__main__":
     match argv[1:]:
         case [*files]:
             interpreter(files)
+        case ["-n", *files]:
+            interpreter(files, NewStandard)
