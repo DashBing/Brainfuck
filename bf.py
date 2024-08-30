@@ -7,9 +7,11 @@ class IndexMinusError(Exception):
 
 class Interpreter:
     memory = [0]
-    index_now = 0
-    jmplist = []
-    input_cache = ""
+    index_now = 0  # index of the memory now
+    input_cache = []  # input cache list
+
+    seek_now = 0  # pointer of the code
+    jmplist = []  # jump pointer list for circular instructions
 
     def left(self):
         if self.index_now > 0:
