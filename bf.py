@@ -88,7 +88,7 @@ class Classic:
     def run(self, text:str):
         while self.seek_now < len(text):
             if self.break_condition:
-                self.break_do()
+                self.break_do(text)
             else:
                 match text[self.seek_now]:
                     case ">":
@@ -189,7 +189,7 @@ def interpreter(files:str, mode:object = Classic):
 
 if __name__ == "__main__":
     match argv[1:]:
-        case [*files]:
-            interpreter(files)
         case ["-n", *files]:
             interpreter(files, NewStandard)
+        case [*files]:
+            interpreter(files)
