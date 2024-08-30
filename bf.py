@@ -76,9 +76,13 @@ class Classic:
     def unknown_command(self, command):
         raise UnknownCommandError(command)
 
+    @property
+    def break_condition(self):
+        return(self.flag_find_bracket)
+
     def run(self, text:str):
         while self.seek_now < len(text):
-            if self.flag_find_bracket:
+            if self.break_condition:
                 if text[self.seek_now] == "]":
                     self.flag_find_bracket = False
                 self.seek_now += 1
@@ -116,17 +120,12 @@ class NewStandard(Classic):
 
     jmppoint_list = []
 
-    @property
-    def jmppoint_locate(self) -> int:
-        for i in range(len(self.jmppoint_list)):
-            if self.jmppoint_list[i] < self.seek_now and self.jmppoint_list[i+1] > self.seek_now:
-                return(i)
-        raise JumppointNotFoundError()
+    flag_jump = False
 
     def unknown_command(self, command):
         match command:
-            case "%":
-                self.jmppoint_list.append(self.seek_now)
+            case "?":
+                self.flag_jump = True
                 self.seek_now += 1
             case x:
                 super().unknown_command(x)
