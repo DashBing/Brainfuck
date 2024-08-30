@@ -114,5 +114,13 @@ def preprocessor(code:str) -> str:
     code = code.replace("\t", "")
     return code
 
-def interpreter(files:str):
-    pass
+def file_processor(files:str):
+    s = ""
+    for i in files:
+        with open(i, "r") as f:
+            s = s + f.read()
+        s = s + "\n"
+    return preprocessor(s)
+
+def interpreter(files:str, run_obj:object = Classic):
+    run_obj().run(file_processor(files))
