@@ -73,8 +73,8 @@ class Classic:
     def right_bracket(self):
         self.seek_now = self.jmplist[-1]
 
-    def unknown_command(x):
-        raise UnknownCommandError(x)
+    def unknown_command(command):
+        raise UnknownCommandError(command)
 
     def run(self, text:str):
         while self.seek_now < len(text):
