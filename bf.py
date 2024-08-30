@@ -108,5 +108,8 @@ replace_dict = {
     "\t":"",
 }
 
-def Interpreter(files):
+def preprocessor(code:str) -> str:
+    pass
+
+def interpreter(files:str):
     pass
