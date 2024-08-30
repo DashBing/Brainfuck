@@ -60,6 +60,9 @@ class Classic:
             self.jmplist.append(self.seek_now)
         self.seek_now += 1
 
+    def right_bracket(self):
+        pass
+
     def run(self, text:str):
         while self.seek_now < len(text):
             if self.flag_find_bracket:
@@ -87,4 +90,4 @@ class Classic:
                     case "[":
                         self.left_bracket()
                     case "]":
-                        pass
+                        self.right_bracket()
