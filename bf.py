@@ -1,4 +1,5 @@
 from sys import argv
+import re
 
 annotator = "//"
 
@@ -191,12 +192,26 @@ class NewStandard(Classic):
                 self.right()
                 self.seek_now += 1
 
+def re_replace(text):
+    p1 = r'%(\d+)%'
+    def r1(match):
+        number = int(match.group(1))
+        return '+' * number
+    text = re.sub(p1, r1, text)
+    p2 = r'%(.)%'
+    def r2(match):
+        number = ord(match.group(1))
+        return '+' * number
+    text = re.sub(p2, r2, text)
+    return text
+
 def preprocessor(code:str) -> str:
     code = code.replace("\r", "\n")
     code = code.split("\n")
     for i in range(len(code)):
         code[i] = code[i].split(annotator)[0]
     code = "".join(code)
+    code = re_replace(code)
     code = code.replace(" ", "")
     code = code.replace("\t", "")
     return code
