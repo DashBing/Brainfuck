@@ -1,5 +1,7 @@
 from sys import argv
 
+annotator = ";"
+
 class IndexMinusError(Exception):
     message = "Index can't be minus."
     def __str__(self) -> str:
@@ -22,7 +24,7 @@ class Classic:
 
     @property
     def now(self) -> int:
-        return(self.memory[self.index_now])
+        return self.memory[self.index_now]
 
     def left(self):
         if self.index_now > 0:
@@ -51,9 +53,9 @@ class Classic:
         del self.input_cache[0]
 
     def __str__(self) -> str:
-        return(self.memory.__str__())
+        return self.memory.__str__()
     def __repr__(self) -> str:
-        return(self.memory.__repr__())
+        return self.memory.__repr__()
 
     def left_bracket(self):
         if self.now == 0:
@@ -102,14 +104,15 @@ class Classic:
                     case x:
                         self.unknown_command(x)
 
-replace_dict = {
-    "\n":"",
-    "\r":"",
-    "\t":"",
-}
-
 def preprocessor(code:str) -> str:
-    pass
+    code = code.replace("\r", "\n")
+    code = code.split("\n")
+    for i in range(len(code)):
+        code[i] = code[i].split(annotator)[0]
+    code = "".join(code)
+    code = code.replace(" ", "")
+    code = code.replace("\t", "")
+    return code
 
 def interpreter(files:str):
     pass
