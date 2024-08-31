@@ -27,7 +27,6 @@ class NewStandard(Classic):
             super().break_do(text)
 
     def output_str(self):
-        print(self.memory)
         while(self.now != 0):
             self.output()
             self.index_now += 1
