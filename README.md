@@ -15,5 +15,5 @@ python bf.py <Sourcefile Names>
 ### New Standard Mode
 
 ```bash
-python bf.py -n <Sourcefile Names>
+python bf++.py <Sourcefile Names>
 ```

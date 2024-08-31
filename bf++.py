@@ -88,9 +88,7 @@ class NewStandard(Classic):
                 self.swap_index()
                 self.seek_now += 1
             case x:
-                self.memory[self.index_now] = ord(x)
-                self.right()
-                self.seek_now += 1
+                super().unknown_command(x)
 
 if __name__ == "__main__":
     interpreter(argv[1:], NewStandard)

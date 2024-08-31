@@ -124,8 +124,8 @@ def re_replace(text):
     p = r'%(\d+)([<>\+-.,/\\\{\}@])%'
     r = lambda m:m.group(2)*int(m.group(1))
     text = re.sub(p, r, text)
-    p = r'%(.)%'
-    r = lambda m:'+'*ord(m.group(1))
+    p = r'%(.+)%'
+    r = lambda m:'>'.join(map(lambda x:'+'*ord(x), list(m.group(1))))
     text = re.sub(p, r, text)
     return text
 
