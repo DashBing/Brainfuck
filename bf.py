@@ -194,18 +194,12 @@ class NewStandard(Classic):
 
 def re_replace(text):
     p = r'%(\d+)%'
-    def r(match):
-        number = int(match.group(1))
-        return '+' * number
+    r = lambda m:'+'*int(m.group(1))
     text = re.sub(p, r, text)
     p = r'%(\d+)([<>\+-.,/\\\{\}@])%'
-    def r(match):
-        number = int(match.group(1))
-        return match.group(2)*number
+    r = lambda m:m.group(2)*int(m.group(1))
     p = r'%(.)%'
-    def r(match):
-        number = ord(match.group(1))
-        return '+' * number
+    r = lambda m:'+'*ord(m.group(1))
     text = re.sub(p, r, text)
     return text
 
