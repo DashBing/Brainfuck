@@ -104,6 +104,21 @@ class NewStandard(Classic):
                 else:
                     self.memory[self.index_now] = 0
                 self.seek_now += 1
+            case "&":
+                self.memory[self.index_now] = self.memory[self.index_now] & self.memory[self.index_now_2]
+                self.seek_now += 1
+            case "^":
+                self.memory[self.index_now] = self.memory[self.index_now] ^ self.memory[self.index_now_2]
+                self.seek_now += 1
+            case "|":
+                self.memory[self.index_now] = self.memory[self.index_now] | self.memory[self.index_now_2]
+                self.seek_now += 1
+            case "L":
+                self.memory[self.index_now] = self.memory[self.index_now] << self.memory[self.index_now_2]
+                self.seek_now += 1
+            case "R":
+                self.memory[self.index_now] = self.memory[self.index_now] >> self.memory[self.index_now_2]
+                self.seek_now += 1
             case "A":
                 self.memory[self.index_now] = self.memory[self.index_now] + self.memory[self.index_now_2]
                 self.seek_now += 1
