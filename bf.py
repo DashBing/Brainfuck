@@ -193,16 +193,20 @@ class NewStandard(Classic):
                 self.seek_now += 1
 
 def re_replace(text):
-    p1 = r'%(\d+)%'
-    def r1(match):
+    p = r'%(\d+)%'
+    def r(match):
         number = int(match.group(1))
         return '+' * number
-    text = re.sub(p1, r1, text)
-    p2 = r'%(.)%'
-    def r2(match):
+    text = re.sub(p, r, text)
+    p = r'%(\d+)([<>\+-.,/\\\{\}@])%'
+    def r(match):
+        number = int(match.group(1))
+        return match.group(2)*number
+    p = r'%(.)%'
+    def r(match):
         number = ord(match.group(1))
         return '+' * number
-    text = re.sub(p2, r2, text)
+    text = re.sub(p, r, text)
     return text
 
 def preprocessor(code:str) -> str:
