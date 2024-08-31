@@ -1,4 +1,5 @@
-from .bf import *
+from bf import *
+from sys import argv
 
 class NewStandard(Classic):
 

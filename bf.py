@@ -123,6 +123,7 @@ def re_replace(text):
     text = re.sub(p, r, text)
     p = r'%(\d+)([<>\+-.,/\\\{\}@])%'
     r = lambda m:m.group(2)*int(m.group(1))
+    text = re.sub(p, r, text)
     p = r'%(.)%'
     r = lambda m:'+'*ord(m.group(1))
     text = re.sub(p, r, text)
