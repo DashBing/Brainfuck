@@ -27,6 +27,7 @@ class NewStandard(Classic):
             super().break_do(text)
 
     def output_str(self):
+        print(self.memory)
         while(self.now != 0):
             self.output()
             self.index_now += 1
@@ -88,7 +89,9 @@ class NewStandard(Classic):
                 self.swap_index()
                 self.seek_now += 1
             case x:
-                super().unknown_command(x)
+                self.memory[self.index_now] = ord(x)
+                self.right()
+                self.seek_now += 1
 
 if __name__ == "__main__":
     interpreter(argv[1:], NewStandard)
