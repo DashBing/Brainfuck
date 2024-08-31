@@ -87,6 +87,35 @@ class NewStandard(Classic):
             case "$":
                 self.swap_index()
                 self.seek_now += 1
+            case '`':
+                if self.now == 0:
+                    exit()
+                else:
+                    self.seek_now += 1
+            case "~":
+                if self.now == 0:
+                    self.memory[self.index_now] = 1
+                else:
+                    self.memory[self.index_now] = 0
+                self.seek_now += 1
+            case "=":
+                if self.memory[self.index_now] == self.memory[self.index_now_2]:
+                    self.memory[self.index_now] = 1
+                else:
+                    self.memory[self.index_now] = 0
+                self.seek_now += 1
+            case "A":
+                self.memory[self.index_now] = self.memory[self.index_now] + self.memory[self.index_now_2]
+                self.seek_now += 1
+            case "S":
+                self.memory[self.index_now] = self.memory[self.index_now] - self.memory[self.index_now_2]
+                self.seek_now += 1
+            case "M":
+                self.memory[self.index_now] = self.memory[self.index_now] * self.memory[self.index_now_2]
+                self.seek_now += 1
+            case "D":
+                self.memory[self.index_now] = self.memory[self.index_now] // self.memory[self.index_now_2]
+                self.seek_now += 1
             case x:
                 self.memory[self.index_now] = ord(x)
                 self.right()
