@@ -2,6 +2,7 @@ from sys import argv
 import re
 
 annotator = "//"
+default_encoding = "utf-8"
 
 class IndexMinusError(Exception):
     message = "Index can't be minus."
@@ -143,7 +144,7 @@ def preprocessor(code:str) -> str:
 def file_processor(files:str):
     s = ""
     for i in files:
-        with open(i, "r") as f:
+        with open(i, "r", encoding=default_encoding) as f:
             s = s + f.read()
         s = s + "\n"
     return preprocessor(s)
