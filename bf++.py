@@ -3,6 +3,8 @@ from sys import argv
 
 class NewStandard(Classic):
 
+    index_now_2 = 0
+
     jmppoint_list = []
     mem_back_list = []
 
@@ -29,6 +31,22 @@ class NewStandard(Classic):
             self.output()
             self.index_now += 1
 
+    def clear(self):
+        self.memory = [0]
+        self.mem_back_list = []
+        self.index_now = 0
+        self.index_now_2 = 0
+
+    def add_memback(self):
+        self.mem_back_list.append(self.index_now)
+
+    def read_memback(self):
+        self.index_now = self.mem_back_list[-1]
+        del self.mem_back_list[-1]
+
+    def swap_index(self):
+        self.index_now, self.index_now_2 = self.index_now_2, self.index_now
+
     def unknown_command(self, command):
         match command:
             case "/":
@@ -45,8 +63,7 @@ class NewStandard(Classic):
                 self.memory[self.index_now] = 0
                 self.seek_now += 1
             case "#":
-                self.memory = [0]
-                self.index_now = 0
+                self.clear()
                 self.seek_now += 1
             case "{":
                 tmp = self.now()
@@ -62,11 +79,13 @@ class NewStandard(Classic):
                 self.output_str()
                 self.seek_now += 1
             case "!":
-                self.mem_back_list.append(self.index_now)
+                self.add_memback()
                 self.seek_now += 1
             case "@":
-                self.index_now = self.mem_back_list[-1]
-                del self.mem_back_list[-1]
+                self.read_memback()
+                self.seek_now += 1
+            case "$":
+                self.swap_index()
                 self.seek_now += 1
             case x:
                 self.memory[self.index_now] = ord(x)
